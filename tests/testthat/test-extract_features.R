@@ -31,7 +31,7 @@ patrick::with_parameters_test_that(
       cluster = cluster,
       min_pres = min_pres,
       min_run = min_run,
-      mz_tol = tol,
+      mz_tol = mz_tol,
       intensity_weighted = intensity_weighted,
       sd_cut = sd_cut,
       sigma_ratio_lim = sigma_ratio_lim,
@@ -86,7 +86,7 @@ patrick::with_parameters_test_that(
   patrick::cases(
     RCX_shortened = list(
       files = c("RCX_06_shortened", "RCX_07_shortened", "RCX_08_shortened"),
-      tol = 1e-05,
+      mz_tol = 1e-05,
       min_pres = 0.5,
       min_run = 12,
       intensity_weighted = FALSE,
