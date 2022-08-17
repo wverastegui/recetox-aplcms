@@ -29,9 +29,15 @@ patrick::with_parameters_test_that(
     doParallel::registerDoParallel(cluster)
     
     corrected <- adjust.time(
+<<<<<<< HEAD
       features = extracted,
       mz_tol_relative = mz_tol_relative,
       rt_tol_relative = rt_tol_relative,
+=======
+      extracted_features = extracted,
+      mz_tol_relative = mz_tol,
+      rt_tol_relative = chr_tol,
+>>>>>>> de2745b3bae89f6c9e40a7325422738f48bb9a76
       mz_max_diff = find_tol_max_d,
       mz_tol_absolute = max_align_mz_diff,
       do.plot = FALSE
@@ -41,10 +47,11 @@ patrick::with_parameters_test_that(
       file.path(testdata, "adjusted", paste0(x, ".parquet"))
     })
     
-    expected <- lapply(expected_filenames, arrow::read_parquet)
-    expected <- lapply(expected, as.data.frame)
+    expected <- lapply(expected_filenames, function(x) {
+      tibble::as_tibble(arrow::read_parquet(x)) |> dplyr::rename( rt = pos, sample_id = V6, cluster = V7)
+    })
     
-    corrected <- lapply(corrected, as.data.frame)
+    corrected <- lapply(corrected, tibble::as_tibble)
   
     expect_equal(corrected, expected)
   },
