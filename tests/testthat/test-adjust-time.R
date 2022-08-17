@@ -29,15 +29,9 @@ patrick::with_parameters_test_that(
     doParallel::registerDoParallel(cluster)
     
     corrected <- adjust.time(
-<<<<<<< HEAD
       features = extracted,
-      mz_tol_relative = mz_tol_relative,
-      rt_tol_relative = rt_tol_relative,
-=======
-      extracted_features = extracted,
       mz_tol_relative = mz_tol,
       rt_tol_relative = chr_tol,
->>>>>>> de2745b3bae89f6c9e40a7325422738f48bb9a76
       mz_max_diff = find_tol_max_d,
       mz_tol_absolute = max_align_mz_diff,
       do.plot = FALSE
