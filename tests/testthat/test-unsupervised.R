@@ -26,16 +26,8 @@ patrick::with_parameters_test_that(
     filenames <- lapply(files, function(x) {
       file.path(testdata, "input", paste0(x, ".mzML"))
     })
+    filenames <- unlist(filenames)
 
-    expected_filenames <- lapply(files, function(x) {
-      file.path(testdata, "extracted", paste0(x, ".parquet"))
-    })
-
-  
-    expected <- lapply(expected_filenames, arrow::read_parquet)
-    expected <- lapply(expected, as.data.frame)
-
-  
     actual <- unsupervised(
       filenames,
       min_exp = 2,
@@ -53,8 +45,6 @@ patrick::with_parameters_test_that(
       sigma_ratio_lim = sigma_ratio_lim,
       component_eliminate = 0.01,
       moment_power = 1,
-    #  mz_tol_relative = mz_tol_relative, # align_chr_tol/align_mz_tol renamed as rt_tol_relative/mz_tol_relative
-    #  rt_tol_relative = rt_tol_relative,
       max_align_mz_diff = max_align_mz_diff,
       recover_mz_range = recover_mz_range,
       recover_chr_range = recover_chr_range,
@@ -63,40 +53,14 @@ patrick::with_parameters_test_that(
       intensity_weighted = intensity_weighted,
       cluster = cluster
     )
-    expect_equal(result$recovered_feature_sample_table, expected)
-    # actual <- unique(actual$recovered_feature_sample_table)
-    # expected <- unique(expected)
+    
+    aligned_feature_sample_table_expected <- arrow::read_parquet(file.path(testdata, "recovered", "aligned_feature_sample_table.parquet"))
+    recovered_feature_sample_table_expected <- arrow::read_parquet(file.path(testdata, "recovered", "recovered_feature_sample_table.parquet"))
 
-    # keys <- c("mz", "pos", "sd1", "sd2")
+    browser()
 
-    # actual <- lapply(actual, function(x) {
-    #   as.data.frame(x) |> dplyr::arrange_at(keys)
-    # })
-    # expected <- lapply(expected, function(x) {
-    #   as.data.frame(x) |> dplyr::arrange_at(keys)
-    # })
-
-
-    # for (i in seq_along(files)) {
-    #   actual_i <- actual[[i]]
-    #   expected_i <- expected[[i]]
-
-    #   report <- dataCompareR::rCompare(actual_i, expected_i, keys = keys, roundDigits = 4, mismatches = 100000)
-    #   dataCompareR::saveReport(report, reportName = files[[i]], showInViewer = FALSE, HTMLReport = FALSE, mismatchCount = 10000)
-
-    #   expect_true(nrow(report$rowMatching$inboth) >= 0.9 * nrow(expected_i))
-
-    #   incommon <- as.numeric(rownames(report$rowMatching$inboth))
-
-    #   subset_actual <- actual_i %>% dplyr::slice(incommon)
-    #   subset_expected <- expected_i %>% dplyr::slice(incommon)
-
-    #   expect_equal(subset_actual$area, subset_expected$area, tolerance = 0.01 * max(subset_expected$area))
-    # }
-
-
-
-
+    expect_equal(actual$aligned_feature_sample_table, aligned_feature_sample_table_expected)
+    expect_equal(actual$recovered_feature_sample_table, recovered_feature_sample_table_expected)
   },
   patrick::cases(
     RCX_shortened = list(
@@ -107,8 +71,6 @@ patrick::with_parameters_test_that(
       intensity_weighted = FALSE,
       sd_cut = c(0.01, 500),
       sigma_ratio_lim = c(0.01, 100),
-      #mz_tol_relative = NA,
-      #rt_tol_relative = NA,
       max_align_mz_diff = 0.01,
       recover_mz_range = NA,
       recover_chr_range = NA,
@@ -118,8 +80,9 @@ patrick::with_parameters_test_that(
       recover_min_count = 3
     )
   )
-  
-)
+) 
+
+
 
 
 # test_that("basic unsupervised test", {
@@ -145,3 +108,4 @@ patrick::with_parameters_test_that(
 
 #   expect_equal(result$recovered_feature_sample_table, expected)
 # })
+
