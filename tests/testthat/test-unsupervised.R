@@ -45,9 +45,11 @@ patrick::with_parameters_test_that(
       sigma_ratio_lim = sigma_ratio_lim,
       component_eliminate = 0.01,
       moment_power = 1,
+      # mz_tol_relative = align_mz_tol,
+      # rt_tol_relative = align_rt_tol,
       max_align_mz_diff = max_align_mz_diff,
       recover_mz_range = recover_mz_range,
-      recover_chr_range = recover_chr_range,
+      recover_rt_range = recover_rt_range,
       use_observed_range = use_observed_range,
       recover_min_count = recover_min_count,
       intensity_weighted = intensity_weighted,
@@ -57,10 +59,11 @@ patrick::with_parameters_test_that(
     aligned_feature_sample_table_expected <- arrow::read_parquet(file.path(testdata, "recovered", "aligned_feature_sample_table.parquet"))
     recovered_feature_sample_table_expected <- arrow::read_parquet(file.path(testdata, "recovered", "recovered_feature_sample_table.parquet"))
 
-    browser()
 
     expect_equal(actual$aligned_feature_sample_table, aligned_feature_sample_table_expected)
     expect_equal(actual$recovered_feature_sample_table, recovered_feature_sample_table_expected)
+  
+  browser()
   },
   patrick::cases(
     RCX_shortened = list(
@@ -73,11 +76,13 @@ patrick::with_parameters_test_that(
       sigma_ratio_lim = c(0.01, 100),
       max_align_mz_diff = 0.01,
       recover_mz_range = NA,
-      recover_chr_range = NA,
+      recover_rt_range = NA,
       use_observed_range = TRUE,
       min_bandwidth = NA,
       max_bandwidth = NA,
       recover_min_count = 3
+      # align_mz_tol = NA,
+      # align_rt_tol = NA
     )
   )
 ) 

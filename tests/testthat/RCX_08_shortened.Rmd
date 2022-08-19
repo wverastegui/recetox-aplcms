@@ -1,0 +1,50 @@
+
+Data Comparison
+===============
+
+Date comparison run: 2022-08-16 16:06:39  
+Comparison run on R version 4.1.3 (2022-03-10)  
+With dataCompareR version 0.1.4  
+
+
+Meta Summary
+============
+
+
+|Dataset Name |Number of Rows |Number of Columns |
+|:------------|:--------------|:-----------------|
+|actual_i     |2361           |5                 |
+|expected_i   |2361           |5                 |
+
+Numeric values were rounded to 4 decimal place(s).
+
+Variable Summary
+================
+
+Number of columns in common: 5  
+Number of columns only in actual_i: 0  
+Number of columns only in expected_i: 0  
+Number of columns with a type mismatch: 0  
+Match keys : 4   - MZ, POS, SD1, SD2
+
+
+
+Row Summary
+===========
+
+Total number of rows read from actual_i: 2361  
+Total number of rows read from expected_i: 2361    
+Number of rows in common: 2361  
+Number of rows dropped from actual_i: 0  
+Number of rows dropped from  expected_i: 0  
+
+
+Data Values Comparison Summary
+==============================
+
+Number of columns compared with ALL rows equal: 1  
+Number of columns compared with SOME rows unequal: 0  
+Number of columns with missing value differences: 0  
+
+Columns with all rows equal : AREA
+
