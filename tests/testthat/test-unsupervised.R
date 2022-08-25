@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 patrick::with_parameters_test_that(
   "basic unsupervised test",
   {
@@ -63,7 +64,6 @@ patrick::with_parameters_test_that(
     expect_equal(actual$aligned_feature_sample_table, aligned_feature_sample_table_expected)
     expect_equal(actual$recovered_feature_sample_table, recovered_feature_sample_table_expected)
   
-  browser()
   },
   patrick::cases(
     RCX_shortened = list(
@@ -113,4 +113,3 @@ patrick::with_parameters_test_that(
 
 #   expect_equal(result$recovered_feature_sample_table, expected)
 # })
-
