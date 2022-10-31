@@ -92,7 +92,7 @@ run_filter <- function(newprof,
   times <- unique(labels)
   times <- times[order(times)]  
  
-  for (i in 1:length(times)) labels[which(newprof$rt == times[i])] <- i #now labels is the index of time points
+  for (i in 1:length(times)) labels[which(newprof$rt == times[i])] <- i # now labels is the index of time points
   newprof$rt <- labels  
 
   # calculates the minimun number of rt points to be considered a peak
