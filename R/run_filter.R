@@ -58,8 +58,7 @@ label_val_to_keep <- function(min_run, timeline, min_pres, this_times, times) {
 
       good_sel <- which(this_smooth >= min_pres)
       good_points[good_sel] <- 1
-      for (j in (-min_run):min_run)
-      {
+      for (j in (-min_run):min_run){
         curr_sel <- good_sel + j
         curr_sel <- curr_sel[curr_sel > 0 & curr_sel <= length(times)]
         good_points[curr_sel] <- 1
@@ -112,8 +111,7 @@ run_filter <- function(newprof,
   new_rec <- newprof * 0
   rec_pointer <- 1
   timeline <- rep(0, length(times))
-  for (m in 2:length(breaks))
-  {
+  for (m in 2:length(breaks)){
     this_prof <- dplyr::slice(newprof, (breaks[m - 1] + 1):breaks[m]) |> dplyr::arrange_at("rt")
 
     to_keep <- label_val_to_keep(
